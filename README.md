@@ -1,7 +1,7 @@
 # Munjul-App
 
 ### Overview
-This is a simple information system application using Java GUI and SQL in Oracle. Coded in Netbeans 8.0.2. It main task is to save transaction history, like income or spending. Not limited to development, feel free to download and change this source code.
+This is a simple information system application using Java GUI and SQL in Oracle. Coded in Netbeans 8.0.2. It main task is to saves transaction history, like income or spending. Not limited to development, feel free to download and change this source code.
 
 ### Requirement
 You must satisfied this minimum requirement first:
