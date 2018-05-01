@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 public class DBConnection {
     private Connection con;
     
-    public Connection getKoneksi(){
+    public Connection getConnection(){
         return con;
     }
     
