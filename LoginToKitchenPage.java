@@ -9,6 +9,9 @@ import javax.swing.JOptionPane;
 public class LoginToKitchenPage extends javax.swing.JFrame {
 
     public DBConnection dbcon = new DBConnection();
+    public int idKitchen;
+    public String name;
+    
     public LoginToKitchenPage() {
         initComponents();
         dbcon.connectDatabase();
@@ -104,25 +107,22 @@ public class LoginToKitchenPage extends javax.swing.JFrame {
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         if(KeyEvent.VK_ENTER==10){
-            int iduser = 0;
-            int idkitchen = 0;
-            String name;
+            int idUser = 0;         
             try{
                 boolean found=false;
                 while(found!=true){
                     iduser = Integer.parseInt(jTextField1.getText());
-                    Statement stmt = dbcon.getConnection().createStatement();
-                    ResultSet rslts = stmt.executeQuery("select * from kitchenofficer "
-                            + "where idofficer "
-                            + "like '"+iduser+"'");
+                    Statement stmt = con.getConnection().createStatement();
+                    ResultSet rslts = stmt.executeQuery("SELECT IDEMPLOYEE, NAME FROM EMPLOYEE "
+                            + "WHERE POSITION LIKE 'Kitchen Officer' "
+                            + "AND IDEMPLOYEE LIKE '"+idUser+"'");
 
-                    if(iduser!=0){
+                    if(idUser!=0){
                         while(rslts.next()){
-                            idkitchen = rslts.getInt("idofficer");
-                            name = rslts.getString("name");
+                            idKitchen = rslts.getInt("IDEMPLOYEE");
+                            name = rslts.getString("NAME");
                         }
-                        if(idkitchen>=4003 && idkitchen<=4158){
-                            //System.out.println(idkitchen);
+                        if(idKitchen>=4003 && idKitchen<=4200){
                             found=true;
                         }else{
                             JOptionPane.showMessageDialog(this, 
@@ -132,7 +132,7 @@ public class LoginToKitchenPage extends javax.swing.JFrame {
                             jTextField1.setText("");
                             jTextField1.requestFocus();                        
                         }
-                    }else if(iduser==0){
+                    }else if(idUser==0){
                         JOptionPane.showMessageDialog(this, 
                                 "You should not input zero...",
                                 "Input Not Valid",
@@ -141,7 +141,7 @@ public class LoginToKitchenPage extends javax.swing.JFrame {
                         jTextField1.requestFocus();                        
                     }
                 }
-                new KitchenPage().setVisible(true);
+                new KitchenPage(idKitchen, name).setVisible(true);
                 this.setVisible(false);
             }catch(SQLException sq){
                 JOptionPane.showMessageDialog(this, 
@@ -152,8 +152,57 @@ public class LoginToKitchenPage extends javax.swing.JFrame {
                 jTextField1.requestFocus();
             }
         }
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        int idUser = 0;         
+        try{
+            boolean found=false;
+            while(found!=true){
+                iduser = Integer.parseInt(jTextField1.getText());
+                Statement stmt = con.getConnection().createStatement();
+                ResultSet rslts = stmt.executeQuery("SELECT IDEMPLOYEE, NAME FROM EMPLOYEE "
+                        + "WHERE POSITION LIKE 'Kitchen Officer' "
+                        + "AND IDEMPLOYEE LIKE '"+idUser+"'");
 
-    }                                           
+                if(idUser!=0){
+                    while(rslts.next()){
+                        idKitchen = rslts.getInt("IDEMPLOYEE");
+                        name = rslts.getString("NAME");
+                    }
+                    if(idKitchen>=4003 && idKitchen<=4200){
+                        found=true;
+                    }else{
+                        JOptionPane.showMessageDialog(this, 
+                                "Please input the ID correctly...",
+                                "ID Not Found",
+                                JOptionPane.PLAIN_MESSAGE
+                        );
+                        jTextField1.setText("");
+                        jTextField1.requestFocus();                        
+                    }
+                }else if(idUser==0){
+                    JOptionPane.showMessageDialog(this, 
+                            "You should not input zero...",
+                            "Input Not Valid",
+                            JOptionPane.PLAIN_MESSAGE
+                    );
+                    jTextField1.setText("");
+                    jTextField1.requestFocus();                        
+                }
+            }
+            new KitchenPage(idKitchen, name).setVisible(true);
+            this.setVisible(false);
+        }catch(SQLException sq){
+            JOptionPane.showMessageDialog(this, 
+                    "Please input again...",
+                    "ID Not Found",
+                    JOptionPane.PLAIN_MESSAGE
+            );
+            jTextField1.setText("");
+            jTextField1.requestFocus();
+        }
+    }
 
     /**
      * @param args the command line arguments
