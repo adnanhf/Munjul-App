@@ -15,4 +15,4 @@ This file will help you to connect with the Oracle XE, save it in `JAVA_PARENT_F
 
 ### JAVA and SQL
 After all requirements satisfied, prepare a null project from Netbeans. Then import all file from this repository to your `Netbeans Projects` folder, then save it to:
-`Projects Folder/src/yourpackage/filename.java`. Don't forget to download the SQL file.
+`Projects Folder/src/yourpackage/filename.java`. Note that I lost my SQL files, it means you have to create your own database and work around the code to suit with it.
